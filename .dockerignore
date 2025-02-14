@@ -1,0 +1,8 @@
+.vscode/
+.web/
+.git/
+.venv/
+.database/
+.logs/
+__pycache__/
+Dockerfile
