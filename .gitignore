@@ -1,3 +1,7 @@
+*.db
+.states
+assets/external/
+.web
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -249,7 +253,7 @@ package-lock.json
 
 # Custom
 .vscode/
-temp/
-logs/
+.temp/
+.logs/
 uploads/
 saved/

@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
-from app import Zabavy
+from ZabavyCloud.context import Context
 
 
 def main():
     print("Running main.")
-    with Zabavy() as zabavy:
-        # zabavy.start(layout=0) # ? <== To start the game directly
-        zabavy.run()
+    with Context() as app:
+        app.loop(context=app)
     print("Main finished.")
 
 

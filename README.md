@@ -4,10 +4,10 @@
 
 ### **✨ By Juanez ✨**
 
-
 ![tests](https://github.com/pynecone-io/pynecone/actions/workflows/integration.yml/badge.svg)
 ![versions](https://img.shields.io/pypi/pyversions/reflex.svg)
 [![Documentation](https://img.shields.io/badge/Documentation%20-Introduction%20-%20%23007ec6)](https://reflex.dev/docs/getting-started/introduction)
+
 </div>
 
 ---
@@ -17,18 +17,21 @@
 ---
 
 # Zabavy
+
 Zabavy es un conjunto de proyectos de utilidad escritos puramente en Python.
 
 ## { APP NAME }
+
 Descripción.
 
 ### Características
-* **Pure Python** - Write your app's frontend and backend all in Python, no need to learn Javascript.
-* **Full Flexibility** - Reflex is easy to get started with, but can also scale to complex apps.
+
+- **Pure Python** - Write your app's frontend and backend all in Python, no need to learn Javascript.
+- **Full Flexibility** - Reflex is easy to get started with, but can also scale to complex apps.
 
 ## ⚡ Permisos
 
-Otorgue permisos de ejecución al archivo llamado `permission.sh` en la carpeta *bin* y luego ejecútelo:
+Otorgue permisos de ejecución al archivo llamado `permission.sh` en la carpeta _bin_ y luego ejecútelo:
 
 ```bash
 chmod +x ./bin/permission.sh && ./bin/permission.sh
@@ -36,7 +39,7 @@ chmod +x ./bin/permission.sh && ./bin/permission.sh
 
 ## ⚙️ Instalación
 
-Ejecute el archivo en *bin* llamado `install.sh`:
+Ejecute el archivo en _bin_ llamado `install.sh`:
 
 ```bash
 ./bin/install.sh
@@ -44,7 +47,7 @@ Ejecute el archivo en *bin* llamado `install.sh`:
 
 ## 🫧 Test
 
-Ejecute el archivo en *bin* llamado `test.sh`:
+Ejecute el archivo en _bin_ llamado `test.sh`:
 
 ```bash
 ./bin/test.sh
@@ -52,7 +55,7 @@ Ejecute el archivo en *bin* llamado `test.sh`:
 
 ## 🫧 Ejecución
 
-Ejecute el archivo en *bin* llamado `run.sh`:
+Ejecute el archivo en _bin_ llamado `run.sh`:
 
 ```bash
 ./bin/run.sh
@@ -60,7 +63,7 @@ Ejecute el archivo en *bin* llamado `run.sh`:
 
 ## 🫧 Build
 
-Ejecute el archivo en *bin* llamado `build.sh`:
+Ejecute el archivo en _bin_ llamado `build.sh`:
 
 ```bash
 ./bin/build.sh
@@ -70,28 +73,30 @@ Ejecute el archivo en *bin* llamado `build.sh`:
 
 <div align="center">
 
-📝 [Docs](https://reflex.dev/docs/getting-started/introduction) &nbsp; |  &nbsp; 🗞️ [Blog](https://reflex.dev/blog) &nbsp; |  &nbsp; 📱 [Component Library](https://reflex.dev/docs/library) &nbsp; |  &nbsp; 🖼️ [Gallery](https://reflex.dev/docs/gallery) &nbsp; |  &nbsp; 🛸 [Deployment](https://reflex.dev/docs/hosting/deploy-quick-start)  &nbsp;   
+📝 [Docs](https://reflex.dev/docs/getting-started/introduction) &nbsp; | &nbsp; 🗞️ [Blog](https://reflex.dev/blog) &nbsp; | &nbsp; 📱 [Component Library](https://reflex.dev/docs/library) &nbsp; | &nbsp; 🖼️ [Gallery](https://reflex.dev/docs/gallery) &nbsp; | &nbsp; 🛸 [Deployment](https://reflex.dev/docs/hosting/deploy-quick-start) &nbsp;
 
 </div>
 
 ## ✅ Estado
+
 Zabavy es un proyecto que está en desarrollo continuo desde el 2020.
 
 ### Change log
+
 For instance, you might use 🐛 for bug fixes, ✨ for new features, 📚 for documentation updates or ✅ for undefined.
 
-* ## 2024/01/01 - V 0.0.1
-    - ✅ Se agrega documento de identificación al repositorio plantilla.
-
+- ## 2024/01/01 - V 0.0.1
+  - ✅ Se agrega documento de identificación al repositorio plantilla.
 
 ## Acerca del desarrollador
 
 <div align="center">
 
-<img src="./static/light_photo.jpg#gh-light-mode-only" alt="Foto del desarrollador con fondo oscuro" width="200">
-<img src="./static/dark_photo.jpg#gh-dark-mode-only" alt="Foto del desarrollador con fondo claro" width="200">
+<img src="./assets/static/light_photo.jpg#gh-light-mode-only" alt="Foto del desarrollador con fondo oscuro" width="200">
+<img src="./assets/static/dark_photo.jpg#gh-dark-mode-only" alt="Foto del desarrollador con fondo claro" width="200">
 
 # Juan Esteban García Cardona.
+
 </div>
 
 ✨ Ingeniero electrónico con amplia experiencia en desarrollo y diseño de hardware y software, con un enfoque especial en sistemas embebidos y algoritmos.
@@ -104,9 +109,10 @@ Además, poseo una sólida experiencia en el desarrollo frontend, utilizando HTM
 🌱 Actualmente estoy trabajando con [PiMedica S.A.](https://pimedica.com/).
 
 💼 Con mis conocimientos he desarrollado en empresas como
+
 <div align="center">
 
-[<img src="./static/pimedica_logo.png" alt="Logo de PiMedica" width="70px">](https://pimedica.com/) &nbsp; |  &nbsp; [<img src="./static/k2k_logo.png" alt="Logo de K2K Soluciones" width="70px">](https://k2ksoluciones.com/) &nbsp; |  &nbsp; [<img src="./static/taclla_logo.png" alt="Logo de Taclla" width="70px">](https://taclla.com/)
+[<img src="./assets/static/pimedica_logo.png" alt="Logo de PiMedica" width="70px">](https://pimedica.com/) &nbsp; | &nbsp; [<img src="./assets/static/k2k_logo.png" alt="Logo de K2K Soluciones" width="70px">](https://k2ksoluciones.com/) &nbsp; | &nbsp; [<img src="./assets/static/taclla_logo.png" alt="Logo de Taclla" width="70px">](https://taclla.com/)
 
 </div>
 
@@ -114,7 +120,7 @@ Además, poseo una sólida experiencia en el desarrollo frontend, utilizando HTM
 
 <div align="center">
 
-💬 [Número telefónico]() &nbsp; |  &nbsp; 📫 [Correo electrónico](mailto:juanezcere@gmail.com)
+💬 [Número telefónico]() &nbsp; | &nbsp; 📫 [Correo electrónico](mailto:juanezcere@gmail.com)
 
 </div>
 
@@ -122,7 +128,7 @@ Además, poseo una sólida experiencia en el desarrollo frontend, utilizando HTM
 
 <div align="center">
 
-📄 [Page](https://juanezcere.github.io/) &nbsp; |  &nbsp; 📂 [GitHub](https://github.com/juanezcere) &nbsp; |  &nbsp; 🔭 [LinkedIn](https://www.linkedin.com/in/juan-esteban-garcia-cardona-221222238/) &nbsp; |  &nbsp; 👨‍💻 [Youtube](https://www.youtube.com/@MrJuanezzz)
+📄 [Page](https://juanezcere.github.io/) &nbsp; | &nbsp; 📂 [GitHub](https://github.com/juanezcere) &nbsp; | &nbsp; 🔭 [LinkedIn](https://www.linkedin.com/in/juan-esteban-garcia-cardona-221222238/) &nbsp; | &nbsp; 👨‍💻 [Youtube](https://www.youtube.com/@MrJuanezzz)
 
 </div>
 
