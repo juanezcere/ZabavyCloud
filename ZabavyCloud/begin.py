@@ -1,14 +1,15 @@
-from .pages.index import index
-
-from .routers.variable import router as variable_router
+from .pages.index import index as index_page
 from .routers.action import router as action_router
-from .routers.sensor import router as sensor_router
 from .routers.actuator import router as actuator_router
 from .routers.device import router as device_router
 from .routers.gateway import router as gateway_router
+from .routers.measure import router as measure_router
+from .routers.sensor import router as sensor_router
+from .routers.variable import router as variable_router
 
 
 def build_backend(context: any) -> None:
+    context.logging.debug("Building backend.")
     context._app.api.title = context.app.title
     context._app.api.version = context.app.api_version
     context._app.api.description = context.app.description
@@ -21,10 +22,12 @@ def build_backend(context: any) -> None:
     context._app.api.include_router(actuator_router)
     context._app.api.include_router(device_router)
     context._app.api.include_router(gateway_router)
+    context._app.api.include_router(measure_router)
 
 
 def build_frontend(context: any) -> None:
-    context._app.add_page(index)
+    context.logging.debug("Building frontend.")
+    context._app.add_page(index_page)
 
 
 class Begin:

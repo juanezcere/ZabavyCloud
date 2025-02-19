@@ -64,3 +64,11 @@ class Error(Enum):
         'code': '021',
         'message': 'gateway_already_exists'
     }
+    MEASURE_NOT_EXISTS = {
+        'code': '022',
+        'message': 'measure_not_exists'
+    }
+    MEASURE_ALREADY_EXISTS = {
+        'code': '023',
+        'message': 'measure_already_exists'
+    }
