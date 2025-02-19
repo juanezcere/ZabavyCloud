@@ -3,6 +3,15 @@ from enum import Enum
 
 class Route(Enum):
     INDEX = '/'
+
+    VARIABLE = '/variables'
+    ACTION = '/actions'
+    SENSOR = '/sensors'
+    ACTUATOR = '/actuators'
+    DEVICE = '/devices'
+    GATEWAY = '/gateways'
+    MEASURE = '/measures'
+
     LOGIN = '/login'
     LOGOUT = '/logout'
     RESTORE = '/restore'
@@ -12,11 +21,3 @@ class Route(Enum):
     HOME = '/home'
     USER = '/users'
     PERMISSION = '/permissions'
-
-    VARIABLE = '/variables'
-    ACTION = '/actions'
-    SENSOR = '/sensors'
-    ACTUATOR = '/actuators'
-    DEVICE = '/devices'
-    GATEWAY = '/gateways'
-    MEASURE = '/measures'
