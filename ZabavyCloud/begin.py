@@ -1,4 +1,5 @@
 from .pages.index import index as index_page
+from .pages.variable import VariablePage as variable_page
 from .routers.action import router as action_router
 from .routers.actuator import router as actuator_router
 from .routers.device import router as device_router
@@ -28,6 +29,7 @@ def build_backend(context: any) -> None:
 def build_frontend(context: any) -> None:
     context.logging.debug("Building frontend.")
     context._app.add_page(index_page)
+    context._app.add_page(variable_page)
 
 
 class Begin:

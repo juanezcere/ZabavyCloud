@@ -2,32 +2,47 @@ import reflex as rx
 
 from rxconfig import config
 
+from ..constants.meta import PREVIEW, Description, Metadata, Title
+from ..constants.route import Route
+from ..templates.single import SingleTemplate
+from ..views.variable import VariableView
+
 
 class State(rx.State):
     """The app state."""
+    count: int = 0
 
-    ...
+    def increment(self):
+        self.count += 1
+
+    def decrement(self):
+        self.count -= 1
 
 
-def index() -> rx.Component:
-    # Welcome Page (Index)
-    return rx.container(
-        rx.color_mode.button(position="top-right"),
-        rx.vstack(
-            rx.heading("Welcome to Reflex!", size="9"),
-            rx.text(
-                "Get started by editing ",
-                rx.code(f"{config.app_name}/{config.app_name}.py"),
-                size="5",
-            ),
-            rx.link(
-                rx.button("Check out our docs!"),
-                href="https://reflex.dev/docs/getting-started/introduction/",
-                is_external=True,
-            ),
-            spacing="5",
-            justify="center",
-            min_height="85vh",
-        ),
-        rx.logo(),
+@rx.page(
+    route=Route.INDEX.value,
+    title=Title.INDEX.value,
+    description=Description.INDEX.value,
+    image=PREVIEW,
+    meta=Metadata.INDEX.value,
+)
+def index() -> SingleTemplate:
+    return SingleTemplate(
+        title='Index',
+        children=[
+            rx.hstack(
+                rx.button(
+                    "Decrement",
+                    color_scheme="ruby",
+                    on_click=State.decrement,
+                ),
+                rx.heading(State.count, font_size="2em"),
+                rx.button(
+                    "Increment",
+                    color_scheme="grass",
+                    on_click=State.increment,
+                ),
+                spacing="4",
+            )
+        ]
     )
