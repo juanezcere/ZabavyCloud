@@ -80,3 +80,17 @@ def listdir(path: str, only_files: bool = True) -> list:
     if exists(path=path):
         return [f for f in os.listdir(path) if isfile(join(path, f))]
     return []
+
+
+def splitext(path: str) -> list:
+    """
+    ? Splites the given path to a list.
+    """
+    return os.path.splitext(path)
+
+
+def basename(path: str) -> str:
+    """
+    ? Gets the file base name of the given path.
+    """
+    return os.path.basename(path)
