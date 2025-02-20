@@ -8,7 +8,7 @@ from ..models.delete import DeleteModel
 from ..models.gateway import GatewayModel, GatewaysModel
 from ..services.gateway import build_service
 
-router = APIRouter(prefix=Route.VARIABLE.value, tags=['Gateways API.'])
+router = APIRouter(prefix=Route.GATEWAY.value, tags=['Gateways API.'])
 
 
 @router.get('/', response_model=GatewaysModel, status_code=status.HTTP_200_OK)
