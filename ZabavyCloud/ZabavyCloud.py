@@ -3,7 +3,8 @@ import reflex as rx
 
 from .context import Context
 
-ctx: Context = Context()
+context: Context = Context()
 app: any = rx.App()
-ctx._app = app
-ctx.begin(context=ctx)
+app.context = context
+context.app = app
+context.begin(context=context)

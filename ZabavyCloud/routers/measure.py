@@ -6,16 +6,9 @@ from ..constants.error import Error
 from ..constants.route import Route
 from ..models.delete import DeleteModel
 from ..models.measure import MeasureModel, MeasuresModel
-from ..repositories.measure import MeasureRepository
-from ..services.measure import MeasureService
+from ..services.measure import build_service
 
 router = APIRouter(prefix=Route.MEASURE.value, tags=['Measures API.'])
-
-repository = MeasureRepository()
-
-
-def build_service() -> MeasureService:
-    return MeasureService(repository=repository)
 
 
 @router.get('/', response_model=MeasuresModel, status_code=status.HTTP_200_OK)

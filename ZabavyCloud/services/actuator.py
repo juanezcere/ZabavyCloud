@@ -1,14 +1,16 @@
 from fastapi import HTTPException, status
 
+import ZabavyCloud.repository as repository
+
 from ..constants.error import Error
 from ..factories.actuator import ActuatorFactory
 from ..models.actuator import ActuatorModel
-from ..repositories.actuator import ActuatorRepository
+from ..repository.repository import Repository
 
 
 class ActuatorService:
-    def __init__(self, repository: ActuatorRepository = ActuatorRepository(), factory: ActuatorFactory = ActuatorFactory()):
-        self.repository: ActuatorRepository = repository
+    def __init__(self, repository: Repository, factory: ActuatorFactory = ActuatorFactory()):
+        self.repository: Repository = repository
         self.factory: ActuatorFactory = factory
 
     def get_actuator(self, record: str = '', skip: int = 0, limit: int = 100) -> list:
@@ -52,3 +54,7 @@ class ActuatorService:
             )
         data = self.repository.delete(record=record, reason=reason)
         return [self.factory(**data), ]
+
+
+def build_service() -> ActuatorService:
+    return ActuatorService(repository=repository.get(name='database'))

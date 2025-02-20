@@ -1,14 +1,16 @@
 from fastapi import HTTPException, status
 
+import ZabavyCloud.repository as repository
+
 from ..constants.error import Error
 from ..factories.device import DeviceFactory
 from ..models.device import DeviceModel
-from ..repositories.device import DeviceRepository
+from ..repository.repository import Repository
 
 
 class DeviceService:
-    def __init__(self, repository: DeviceRepository = DeviceRepository(), factory: DeviceFactory = DeviceFactory()):
-        self.repository: DeviceRepository = repository
+    def __init__(self, repository: Repository, factory: DeviceFactory = DeviceFactory()):
+        self.repository: Repository = repository
         self.factory: DeviceFactory = factory
 
     def get_device(self, record: str = '', skip: int = 0, limit: int = 100) -> list:
@@ -52,3 +54,7 @@ class DeviceService:
             )
         data = self.repository.delete(record=record, reason=reason)
         return [self.factory(**data), ]
+
+
+def build_service() -> DeviceService:
+    return DeviceService(repository=repository.get(name='database'))

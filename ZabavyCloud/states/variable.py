@@ -1,6 +1,6 @@
 import reflex as rx
 
-from ..routers.variable import VariableService, build_service
+from ..services.variable import VariableService, build_service
 
 
 class VariableState(rx.State):

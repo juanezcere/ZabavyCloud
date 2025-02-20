@@ -1,14 +1,16 @@
 from fastapi import HTTPException, status
 
+import ZabavyCloud.repository as repository
+
 from ..constants.error import Error
 from ..factories.variable import VariableFactory
 from ..models.variable import VariableModel
-from ..repositories.variable import VariableRepository
+from ..repository.repository import Repository
 
 
 class VariableService:
-    def __init__(self, repository: VariableRepository = VariableRepository(), factory: VariableFactory = VariableFactory()):
-        self.repository: VariableRepository = repository
+    def __init__(self, repository: Repository, factory: VariableFactory = VariableFactory()):
+        self.repository: Repository = repository
         self.factory: VariableFactory = factory
 
     def get_variable(self, record: str = '', skip: int = 0, limit: int = 100) -> list:
@@ -52,3 +54,7 @@ class VariableService:
             )
         data = self.repository.delete(record=record, reason=reason)
         return [self.factory(**data), ]
+
+
+def build_service() -> VariableService:
+    return VariableService(repository=repository.get(name='database'))

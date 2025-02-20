@@ -1,14 +1,16 @@
 from fastapi import HTTPException, status
 
+import ZabavyCloud.repository as repository
+
 from ..constants.error import Error
 from ..factories.measure import MeasureFactory
 from ..models.measure import MeasureModel
-from ..repositories.measure import MeasureRepository
+from ..repository.repository import Repository
 
 
 class MeasureService:
-    def __init__(self, repository: MeasureRepository = MeasureRepository(), factory: MeasureFactory = MeasureFactory()):
-        self.repository: MeasureRepository = repository
+    def __init__(self, repository: Repository, factory: MeasureFactory = MeasureFactory()):
+        self.repository: Repository = repository
         self.factory: MeasureFactory = factory
 
     def get_measure(self, record: str = '', skip: int = 0, limit: int = 100) -> list:
@@ -53,3 +55,7 @@ class MeasureService:
             )
         data = self.repository.delete(record=record, reason=reason)
         return [self.factory(**data), ]
+
+
+def build_service() -> MeasureService:
+    return MeasureService(repository=repository.get(name='database'))

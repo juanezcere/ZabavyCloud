@@ -30,22 +30,23 @@ class Context:
             'web_version': const.WEB_VERSION,
             'web_port': const.WEB_PORT,
         }
-        self.app: App = App(**data)
-        self.app.paths = {
-            name: join(path=[self.app.path, path]) for name, path in const.DATA_FOLDERS.items()
+        self.application: App = App(**data)
+        self.application.paths = {
+            name: join(path=[self.application.path, path]) for name, path in const.DATA_FOLDERS.items()
         }
-        [mkdir(path=path) for path in self.app.paths.values()]
-        logs_file: str = join(path=[self.app.paths['logs'], self.app.log_file])
-        self.logging = configure_logging(name=self.app.name, file=logs_file,
+        [mkdir(path=path) for path in self.application.paths.values()]
+        logs_path = [self.application.paths['logs'], self.application.log_file]
+        logs_file: str = join(path=logs_path)
+        self.logging = configure_logging(name=self.application.name, file=logs_file,
                                          level=const.LOG_LEVEL)
-        self.app.start: int = time()
-        self.logging.info(f"Context '{self.app.name}' created.")
+        self.application.start: int = time()
+        self.logging.info(f"Context '{self.application.name}' created.")
 
     def __enter__(self):
         """
         Enters to the application context.
         """
-        self.logging.info(f"Starting the app '{self.app.name}'.")
+        self.logging.info(f"Starting the app '{self.application.name}'.")
         self.begin(context=self)
         return self
 
@@ -53,5 +54,5 @@ class Context:
         """
         Closing the application context.
         """
-        self.logging.info(f"Closing the app '{self.app.name}'.")
+        self.logging.info(f"Closing the app '{self.application.name}'.")
         self.close(context=self)

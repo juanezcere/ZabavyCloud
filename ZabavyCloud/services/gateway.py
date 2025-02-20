@@ -1,14 +1,16 @@
 from fastapi import HTTPException, status
 
+import ZabavyCloud.repository as repository
+
 from ..constants.error import Error
 from ..factories.gateway import GatewayFactory
 from ..models.gateway import GatewayModel
-from ..repositories.gateway import GatewayRepository
+from ..repository.repository import Repository
 
 
 class GatewayService:
-    def __init__(self, repository: GatewayRepository = GatewayRepository(), factory: GatewayFactory = GatewayFactory()):
-        self.repository: GatewayRepository = repository
+    def __init__(self, repository: Repository, factory: GatewayFactory = GatewayFactory()):
+        self.repository: Repository = repository
         self.factory: GatewayFactory = factory
 
     def get_gateway(self, record: str = '', skip: int = 0, limit: int = 100) -> list:
@@ -52,3 +54,7 @@ class GatewayService:
             )
         data = self.repository.delete(record=record, reason=reason)
         return [self.factory(**data), ]
+
+
+def build_service() -> GatewayService:
+    return GatewayService(repository=repository.get(name='database'))

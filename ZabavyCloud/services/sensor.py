@@ -1,14 +1,16 @@
 from fastapi import HTTPException, status
 
+import ZabavyCloud.repository as repository
+
 from ..constants.error import Error
 from ..factories.sensor import SensorFactory
 from ..models.sensor import SensorModel
-from ..repositories.sensor import SensorRepository
+from ..repository.repository import Repository
 
 
 class SensorService:
-    def __init__(self, repository: SensorRepository = SensorRepository(), factory: SensorFactory = SensorFactory()):
-        self.repository: SensorRepository = repository
+    def __init__(self, repository: Repository, factory: SensorFactory = SensorFactory()):
+        self.repository: Repository = repository
         self.factory: SensorFactory = factory
 
     def get_sensor(self, record: str = '', skip: int = 0, limit: int = 100) -> list:
@@ -52,3 +54,7 @@ class SensorService:
             )
         data = self.repository.delete(record=record, reason=reason)
         return [self.factory(**data), ]
+
+
+def build_service() -> SensorService:
+    return SensorService(repository=repository.get(name='database'))

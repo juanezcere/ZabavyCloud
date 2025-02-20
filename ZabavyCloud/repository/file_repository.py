@@ -16,7 +16,7 @@ class FileRepository(Repository):
         file_name = f"{collection.value}.json"  # Nombre del archivo basado en la colección
         return f"{self.base_path}/{file_name}"
 
-    def get(self, collection: Collection, filters: str, skip: int = 0, limit: int = 100) -> list:
+    def read(self, collection: Collection, record: str, skip: int = 0, limit: int = 100) -> list:
         file_path = self._get_file_path(collection)
         try:
             with open(file_path, 'r') as f:
@@ -34,7 +34,7 @@ class FileRepository(Repository):
 
         return resultados[skip:skip + limit]
 
-    def post(self, collection: Collection, data: dict) -> dict:
+    def create(self, collection: Collection, data: dict) -> dict:
         file_path = self._get_file_path(collection)
         try:
             with open(file_path, 'r') as f:
@@ -52,7 +52,7 @@ class FileRepository(Repository):
             json.dump(all_data, f, indent=4)  # Guarda los datos actualizados
         return data
 
-    def put(self, collection: Collection, register: str, data: dict) -> dict:
+    def update(self, collection: Collection, record: str, data: dict) -> dict:
         file_path = self._get_file_path(collection)
         try:
             with open(file_path, 'r') as f:
@@ -61,14 +61,14 @@ class FileRepository(Repository):
             return None  # Archivo no encontrado
 
         for i, item in enumerate(all_data):
-            if str(item.get("id")) == register:  # Compara IDs como strings
+            if str(item.get("id")) == record:  # Compara IDs como strings
                 all_data[i].update(data)
                 with open(file_path, 'w') as f:
                     json.dump(all_data, f, indent=4)
                 return all_data[i]
         return None  # Registro no encontrado
 
-    def delete(self, collection: Collection, register: str, reason: str) -> dict:
+    def delete(self, collection: Collection, record: str, reason: str) -> dict:
         file_path = self._get_file_path(collection)
         try:
             with open(file_path, 'r') as f:
@@ -77,7 +77,7 @@ class FileRepository(Repository):
             return None  # Archivo no encontrado
 
         for i, item in enumerate(all_data):
-            if str(item.get("id")) == register:  # Compara IDs como strings
+            if str(item.get("id")) == record:  # Compara IDs como strings
                 deleted_data = all_data.pop(i)
                 with open(file_path, 'w') as f:
                     json.dump(all_data, f, indent=4)

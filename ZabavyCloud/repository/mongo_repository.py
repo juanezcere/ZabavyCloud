@@ -17,7 +17,7 @@ class MongoRepository(Repository):
         """
         return self.db[collection.value]
 
-    def get(self, collection: Collection, filters: str, skip: int = 0, limit: int = 100) -> list:
+    def read(self, collection: Collection, record: str, skip: int = 0, limit: int = 100) -> list:
         mongo_collection = self._get_collection(collection)
 
         # Convertir la cadena de filtro a un diccionario de consulta de MongoDB
@@ -30,34 +30,34 @@ class MongoRepository(Repository):
 
         return list(mongo_collection.find(query).skip(skip).limit(limit))
 
-    def post(self, collection: Collection, data: dict) -> dict:
+    def create(self, collection: Collection, data: dict) -> dict:
         mongo_collection = self._get_collection(collection)
         result = mongo_collection.insert_one(data)
         new_id = str(result.inserted_id)
         data['id'] = new_id
         return data
 
-    def put(self, collection: Collection, register: str, data: dict) -> dict:
+    def update(self, collection: Collection, record: str, data: dict) -> dict:
         mongo_collection = self._get_collection(collection)
         try:
-            register_id = ObjectId(register)
+            record_id = ObjectId(record)
         except:
-            register_id = register
+            record_id = record
 
-        result = mongo_collection.replace_one({'_id': register_id}, data)
+        result = mongo_collection.replace_one({'_id': record_id}, data)
         if result.modified_count > 0:
             return data
         else:
             return None
 
-    def delete(self, collection: Collection, register: str, reason: str) -> dict:
+    def delete(self, collection: Collection, record: str, reason: str) -> dict:
         mongo_collection = self._get_collection(collection)
         try:
-            register_id = ObjectId(register)
+            record_id = ObjectId(record)
         except:
-            register_id = register
-        deleted_data = mongo_collection.find_one({'_id': register_id})
-        result = mongo_collection.delete_one({'_id': register_id})
+            record_id = record
+        deleted_data = mongo_collection.find_one({'_id': record_id})
+        result = mongo_collection.delete_one({'_id': record_id})
         if result.deleted_count > 0:
             return deleted_data
         else:
