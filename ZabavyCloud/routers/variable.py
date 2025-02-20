@@ -6,16 +6,9 @@ from ..constants.error import Error
 from ..constants.route import Route
 from ..models.delete import DeleteModel
 from ..models.variable import VariableModel, VariablesModel
-from ..repositories.variable import VariableRepository
-from ..services.variable import VariableService
+from ..services.variable import build_service
 
 router = APIRouter(prefix=Route.VARIABLE.value, tags=['Variables API.'])
-
-repository = VariableRepository()
-
-
-def build_service() -> VariableService:
-    return VariableService(repository=repository)
 
 
 @router.get('/', response_model=VariablesModel, status_code=status.HTTP_200_OK)

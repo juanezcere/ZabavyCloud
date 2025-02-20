@@ -6,16 +6,9 @@ from ..constants.error import Error
 from ..constants.route import Route
 from ..models.delete import DeleteModel
 from ..models.device import DeviceModel, DevicesModel
-from ..repositories.device import DeviceRepository
-from ..services.device import DeviceService
+from ..services.device import build_service
 
 router = APIRouter(prefix=Route.DEVICE.value, tags=['Devices API.'])
-
-repository = DeviceRepository()
-
-
-def build_service() -> DeviceService:
-    return DeviceService(repository=repository)
 
 
 @router.get('/', response_model=DevicesModel, status_code=status.HTTP_200_OK)

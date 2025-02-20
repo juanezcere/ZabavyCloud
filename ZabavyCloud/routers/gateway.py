@@ -6,16 +6,9 @@ from ..constants.error import Error
 from ..constants.route import Route
 from ..models.delete import DeleteModel
 from ..models.gateway import GatewayModel, GatewaysModel
-from ..repositories.gateway import GatewayRepository
-from ..services.gateway import GatewayService
+from ..services.gateway import build_service
 
-router = APIRouter(prefix=Route.VARIABLE.value, tags=['Gateways API.'])
-
-repository = GatewayRepository()
-
-
-def build_service() -> GatewayService:
-    return GatewayService(repository=repository)
+router = APIRouter(prefix=Route.GATEWAY.value, tags=['Gateways API.'])
 
 
 @router.get('/', response_model=GatewaysModel, status_code=status.HTTP_200_OK)

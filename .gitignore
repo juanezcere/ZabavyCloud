@@ -255,5 +255,6 @@ package-lock.json
 .vscode/
 .temp/
 .logs/
+.database/
 uploads/
 saved/

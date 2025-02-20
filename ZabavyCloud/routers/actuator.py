@@ -4,18 +4,11 @@ from fastapi import APIRouter, Depends, Header, Request, status
 
 from ..constants.error import Error
 from ..constants.route import Route
-from ..models.delete import DeleteModel
 from ..models.actuator import ActuatorModel, ActuatorsModel
-from ..repositories.actuator import ActuatorRepository
-from ..services.actuator import ActuatorService
+from ..models.delete import DeleteModel
+from ..services.actuator import build_service
 
 router = APIRouter(prefix=Route.ACTUATOR.value, tags=['Actuators API.'])
-
-repository = ActuatorRepository()
-
-
-def build_service() -> ActuatorService:
-    return ActuatorService(repository=repository)
 
 
 @router.get('/', response_model=ActuatorsModel, status_code=status.HTTP_200_OK)

@@ -1,6 +1,6 @@
 import reflex as rx
 
-from ..routers.variable import VariableService, build_service
+from ..services.variable import VariableService, build_service
 
 
 class VariableState(rx.State):
@@ -13,7 +13,7 @@ class VariableState(rx.State):
         {"title": "Maximum", "type": "float"},
         {"title": "Minimum", "type": "float"},
         {"title": "Offset", "type": "float"},
-        {"title": "Equation", "type": "list"},
+        {"title": "Equation", "type": "str"},
     ]
 
     data: list = []
@@ -28,5 +28,5 @@ class VariableState(rx.State):
 
     def get_data(self):
         service: VariableService = build_service()
-        self.data = service.get_variable()
-        print(self.data)
+        data: list = service.get_variable()
+        self.data = [list(record.dict().values()) for record in data]

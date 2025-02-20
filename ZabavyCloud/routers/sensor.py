@@ -6,16 +6,9 @@ from ..constants.error import Error
 from ..constants.route import Route
 from ..models.delete import DeleteModel
 from ..models.sensor import SensorModel, SensorsModel
-from ..repositories.sensor import SensorRepository
-from ..services.sensor import SensorService
+from ..services.sensor import build_service
 
 router = APIRouter(prefix=Route.SENSOR.value, tags=['Sensors API.'])
-
-repository = SensorRepository()
-
-
-def build_service() -> SensorService:
-    return SensorService(repository=repository)
 
 
 @router.get('/', response_model=SensorsModel, status_code=status.HTTP_200_OK)
