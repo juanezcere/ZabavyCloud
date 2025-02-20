@@ -16,7 +16,11 @@ class ActionService:
 
     def get_action(self, record: str = '', skip: int = 0, limit: int = 100) -> list:
         data: list = self.repository.read(
-            collection=Collection.ACTION, record=record, skip=skip, limit=limit)
+            collection=Collection.ACTION,
+            record=record,
+            skip=skip,
+            limit=limit
+        )
         return [self.factory(**model) for model in data]
 
     def create_action(self, model: ActionModel) -> list:
@@ -28,7 +32,9 @@ class ActionService:
                 detail=Error.ACTION_ALREADY_EXISTS.value,
             )
         data = self.repository.create(
-            collection=Collection.ACTION, data=model.dict())
+            collection=Collection.ACTION,
+            data=model.dict()
+        )
         return [self.factory(**data), ]
 
     def update_action(self, model: ActionModel, record: str) -> list:
@@ -46,7 +52,10 @@ class ActionService:
                 detail=Error.ACTION_ALREADY_EXISTS.value,
             )
         data = self.repository.update(
-            collection=Collection.ACTION, record=record, data=model.dict())
+            collection=Collection.ACTION,
+            record=record,
+            data=model.dict()
+        )
         return [self.factory(**data), ]
 
     def delete_action(self, record: str, reason: str = '') -> list:
@@ -57,7 +66,10 @@ class ActionService:
                 detail=Error.ACTION_NOT_EXISTS.value,
             )
         data = self.repository.delete(
-            collection=Collection.ACTION, record=record, reason=reason)
+            collection=Collection.ACTION,
+            record=record,
+            reason=reason
+        )
         return [self.factory(**data), ]
 
 
