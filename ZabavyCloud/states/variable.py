@@ -1,5 +1,6 @@
 import reflex as rx
 
+from ..models.variable import VariableModel
 from ..services.variable import VariableService, build_service
 
 
@@ -16,17 +17,8 @@ class VariableState(rx.State):
         {"title": "Equation", "type": "str"},
     ]
 
-    data: list = []
-
-    def click_cell(self, pos):
-        col, row = pos
-        yield self.get_clicked_data(pos)
-
-    def get_clicked_data(self, pos) -> str:
-        self.clicked_data = f"Cell clicked: {pos}"
-        print(self.clicked_data)
+    data: list[VariableModel] = []
 
     def get_data(self):
         service: VariableService = build_service()
-        data: list = service.get_variable()
-        self.data = [list(record.dict().values()) for record in data]
+        self.data: list = service.get_variable()
