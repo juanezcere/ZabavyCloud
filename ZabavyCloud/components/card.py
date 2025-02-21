@@ -57,20 +57,7 @@ def Card(module: str, id: str = '', name: str = 'Name', description: str = 'Desc
     )
 
 
-def Row(module: str, item: any):
-    return rx.data_list.item(
-        Card(
-            module=module,
-            id=item.id,
-            name=item.name,
-            description=item.description,
-            image=item.image
-        ),
-        align='center',
-    )
-
-
-def CardList(data: list, module: str) -> rx.vstack:
+def CardList(state: any) -> rx.vstack:
     return rx.vstack(
         rx.hstack(
             rx.input(
@@ -80,16 +67,76 @@ def CardList(data: list, module: str) -> rx.vstack:
                 placeholder='Search here...',
                 width='100%',
             ),
-            Button(
-                image='plus',
-                tooltip='create',
-                event='',
+            rx.dialog.root(
+                rx.dialog.trigger(
+                    Button(
+                        image='plus',
+                        tooltip='Create',
+                        event='',
+                    )
+                ),
+                rx.dialog.content(
+                    rx.dialog.title('Data creation'),
+                    rx.dialog.description('Form to create data.'),
+                    rx.vstack(
+                        rx.foreach(
+                            state.fields,
+                            lambda x: rx.vstack(
+                                rx.text(x.title),
+                                rx.input(
+                                    placeholder=x.title,
+                                    name=x.id,
+                                    type=x.type,
+                                    width='100%',
+                                ),
+                                width='100%',
+                                justify='center',
+                                spacing='2',
+                            )
+                        ),
+                        spacing='3',
+                        margin_top='16px',
+                        justify='center',
+                    ),
+                    rx.flex(
+                        rx.dialog.close(
+                            Button(
+                                image='save',
+                                tooltip='Save',
+                                event='',
+                            )
+                        ),
+                        rx.dialog.close(
+                            Button(
+                                image='circle-x',
+                                tooltip='Close',
+                                event='',
+                                color='red',
+                            )
+                        ),
+                        spacing='3',
+                        margin_top='16px',
+                        justify='end',
+                    ),
+                ),
             ),
             spacing='5',
             align='center',
         ),
         rx.data_list.root(
-            rx.foreach(data, lambda x: Row(module=module, item=x)),
+            rx.foreach(
+                state.data,
+                lambda item: rx.data_list.item(
+                    Card(
+                        module=state.module,
+                        id=item.id,
+                        name=item.name,
+                        description=item.description,
+                        image=item.image
+                    ),
+                    align='center',
+                )
+            ),
         ),
         width='100%',
         spacing='3',

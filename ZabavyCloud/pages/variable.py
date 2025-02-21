@@ -19,7 +19,7 @@ from ..states.variable import VariableState
 )
 def VariablePage() -> SingleTemplate:
     return SingleTemplate(
-        title='Variables',
+        title=Title.VARIABLE.value,
         children=[
             VariableView(state=VariableState),
         ]
