@@ -8,7 +8,7 @@ def Button(image: str, tooltip: str, event: any, size: str = '2', radius: str = 
             content=tooltip,
             side='bottom',
         ),
-        # on_click=event,
+        on_click=event,
         size=size,
         radius=radius,
         variant=variant,

@@ -15,7 +15,7 @@ from ..states.variable import VariableState
     description=Description.VARIABLE.value,
     image=PREVIEW,
     meta=Metadata.VARIABLE.value,
-    # on_load=[VariableState.get_data],
+    # on_load=[VariableState.create_test_data],
 )
 def VariablePage() -> SingleTemplate:
     return SingleTemplate(
