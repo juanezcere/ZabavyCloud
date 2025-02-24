@@ -2,13 +2,13 @@ import reflex as rx
 
 from ..constants.route import Route
 from ..models.field import FieldModel
-from ..models.variable import VariableModel
-from ..services.variable import VariableService, build_service
+from ..models.action import ActionModel
+from ..services.action import ActionService, build_service
 from ..utils.uuid_utils import generate_id
 
 
-class VariableState(rx.State):
-    module: str = Route.VARIABLE.value
+class ActionState(rx.State):
+    module: str = Route.ACTION.value
 
     fields: list[FieldModel] = [
         FieldModel(
@@ -42,37 +42,9 @@ class VariableState(rx.State):
             placeholder='Description',
             icon='scroll-text',
         ),
-        FieldModel(
-            name='maximum',
-            type='number',
-            placeholder='Maximum',
-            icon='square-plus',
-            required=False,
-        ),
-        FieldModel(
-            name='minimum',
-            type='number',
-            placeholder='Minimum',
-            icon='square-minus',
-            required=False,
-        ),
-        FieldModel(
-            name='offset',
-            type='number',
-            placeholder='Offset',
-            icon='square-percent',
-            required=False,
-        ),
-        FieldModel(
-            name='equation',
-            type='text',
-            placeholder='Equation',
-            icon='square-sigma',
-            required=False,
-        ),
     ]
 
-    data: list[VariableModel] = []
+    data: list[ActionModel] = []
 
     selected: str = ''
 
@@ -90,17 +62,16 @@ class VariableState(rx.State):
         self.selected = ''
 
     def get_data(self):
-        service: VariableService = build_service()
-        self.data: list = service.get_variable()
+        service: ActionService = build_service()
+        self.data: list = service.get_action()
 
     def handle_submit(self, data: dict):
-        data['equation'] = data['equation'].split(',')
-        service: VariableService = build_service()
+        service: ActionService = build_service()
         model = service.factory(**data)
         if self.selected == '':
-            service.create_variable(model=model)
+            service.create_action(model=model)
         else:
-            service.update_variable(model=model, record=self.selected)
+            service.update_action(model=model, record=self.selected)
         self.get_data()
         self.close_form()
 
@@ -115,8 +86,8 @@ class VariableState(rx.State):
         self.show_form()
 
     def handle_delete(self, element: str):
-        service: VariableService = build_service()
-        service.delete_variable(record=element, reason='')
+        service: ActionService = build_service()
+        service.delete_action(record=element, reason='')
         self.get_data()
 
     def handle_search(self, text: str):

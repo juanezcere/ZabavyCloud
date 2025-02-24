@@ -4,9 +4,9 @@ from rxconfig import config
 
 from ..constants.meta import PREVIEW, Description, Metadata, Title
 from ..constants.route import Route
+from ..states.variable import VariableState
 from ..templates.single import SingleTemplate
 from ..views.variable import VariableView
-from ..states.variable import VariableState
 
 
 @rx.page(
@@ -15,11 +15,11 @@ from ..states.variable import VariableState
     description=Description.VARIABLE.value,
     image=PREVIEW,
     meta=Metadata.VARIABLE.value,
-    on_load=[VariableState.get_data],
+    # on_load=[VariableState.create_test_data],
 )
 def VariablePage() -> SingleTemplate:
     return SingleTemplate(
-        title='Variables',
+        title=Title.VARIABLE.value,
         children=[
             VariableView(state=VariableState),
         ]

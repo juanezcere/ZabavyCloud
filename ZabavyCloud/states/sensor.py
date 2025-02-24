@@ -2,13 +2,13 @@ import reflex as rx
 
 from ..constants.route import Route
 from ..models.field import FieldModel
-from ..models.variable import VariableModel
-from ..services.variable import VariableService, build_service
+from ..models.sensor import SensorModel
+from ..services.sensor import SensorService, build_service
 from ..utils.uuid_utils import generate_id
 
 
-class VariableState(rx.State):
-    module: str = Route.VARIABLE.value
+class SensorState(rx.State):
+    module: str = Route.SENSOR.value
 
     fields: list[FieldModel] = [
         FieldModel(
@@ -43,36 +43,15 @@ class VariableState(rx.State):
             icon='scroll-text',
         ),
         FieldModel(
-            name='maximum',
-            type='number',
-            placeholder='Maximum',
-            icon='square-plus',
-            required=False,
-        ),
-        FieldModel(
-            name='minimum',
-            type='number',
-            placeholder='Minimum',
-            icon='square-minus',
-            required=False,
-        ),
-        FieldModel(
-            name='offset',
-            type='number',
-            placeholder='Offset',
-            icon='square-percent',
-            required=False,
-        ),
-        FieldModel(
-            name='equation',
+            name='variables',
             type='text',
-            placeholder='Equation',
+            placeholder='Variables',
             icon='square-sigma',
             required=False,
         ),
     ]
 
-    data: list[VariableModel] = []
+    data: list[SensorModel] = []
 
     selected: str = ''
 
@@ -90,17 +69,17 @@ class VariableState(rx.State):
         self.selected = ''
 
     def get_data(self):
-        service: VariableService = build_service()
-        self.data: list = service.get_variable()
+        service: SensorService = build_service()
+        self.data: list = service.get_sensor()
 
     def handle_submit(self, data: dict):
-        data['equation'] = data['equation'].split(',')
-        service: VariableService = build_service()
+        data['variables'] = data['variables'].split(',')
+        service: SensorService = build_service()
         model = service.factory(**data)
         if self.selected == '':
-            service.create_variable(model=model)
+            service.create_sensor(model=model)
         else:
-            service.update_variable(model=model, record=self.selected)
+            service.update_sensor(model=model, record=self.selected)
         self.get_data()
         self.close_form()
 
@@ -115,8 +94,8 @@ class VariableState(rx.State):
         self.show_form()
 
     def handle_delete(self, element: str):
-        service: VariableService = build_service()
-        service.delete_variable(record=element, reason='')
+        service: SensorService = build_service()
+        service.delete_sensor(record=element, reason='')
         self.get_data()
 
     def handle_search(self, text: str):

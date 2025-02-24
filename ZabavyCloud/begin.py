@@ -1,6 +1,11 @@
 import ZabavyCloud.repository as repository
 
+from .pages.action import ActionPage as action_page
+from .pages.actuator import ActuatorPage as actuator_page
+from .pages.device import DevicePage as device_page
+from .pages.gateway import GatewayPage as gateway_page
 from .pages.index import index as index_page
+from .pages.sensor import SensorPage as sensor_page
 from .pages.variable import VariablePage as variable_page
 from .routers.action import router as action_router
 from .routers.actuator import router as actuator_router
@@ -38,6 +43,11 @@ def build_frontend(context: any) -> None:
     context.logging.debug("Building frontend.")
     context.app.add_page(index_page)
     context.app.add_page(variable_page)
+    context.app.add_page(device_page)
+    context.app.add_page(action_page)
+    context.app.add_page(actuator_page)
+    context.app.add_page(sensor_page)
+    context.app.add_page(gateway_page)
 
 
 class Begin:

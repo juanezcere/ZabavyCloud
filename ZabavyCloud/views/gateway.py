@@ -1,10 +1,10 @@
 import reflex as rx
 
 from ..components.card import CardList
-from ..states.variable import VariableState
+from ..states.gateway import GatewayState
 
 
-def VariableView(state: VariableState):
+def GatewayView(state: GatewayState):
     return rx.section(
         CardList(state=state),
         on_mount=state.get_data,

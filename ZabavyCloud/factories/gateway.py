@@ -1,6 +1,24 @@
+from fastapi import HTTPException, status
+
+from ..constants.error import Error
 from ..models.gateway import GatewayModel
 
 
 class GatewayFactory:
-    def __call__(self, *args, **kwargs) -> GatewayModel:
-        return GatewayModel(*args, **kwargs)
+    def __call__(self, name: str, image: str, platform: str, id: str = '', description: str = '', devices: list = []) -> GatewayModel:
+        try:
+            data: dict = {
+                'id': str(id),
+                'name': str(name),
+                'image': str(image),
+                'platform': str(platform),
+                'description': str(description),
+                'devices': [str(e) for e in list(devices)],
+            }
+            return GatewayModel(**data)
+        except Exception as err:
+            print(err)
+            raise HTTPException(
+                status_code=status.HTTP_406_NOT_ACCEPTABLE,
+                detail=Error.GATEWAY_BAD_REQUEST.value,
+            )

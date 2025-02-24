@@ -1,10 +1,10 @@
 import reflex as rx
 
 from ..components.card import CardList
-from ..states.variable import VariableState
+from ..states.sensor import SensorState
 
 
-def VariableView(state: VariableState):
+def SensorView(state: SensorState):
     return rx.section(
         CardList(state=state),
         on_mount=state.get_data,

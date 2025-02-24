@@ -5,7 +5,6 @@ from rxconfig import config
 from ..constants.meta import PREVIEW, Description, Metadata, Title
 from ..constants.route import Route
 from ..templates.single import SingleTemplate
-from ..views.variable import VariableView
 
 
 class State(rx.State):
@@ -30,7 +29,7 @@ def index() -> SingleTemplate:
     return SingleTemplate(
         title='Index',
         children=[
-            rx.hstack(
+            rx.center(
                 rx.button(
                     "Decrement",
                     color_scheme="ruby",

@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 TITLE:  str = 'Zabavy'
 PREVIEW: str = 'https://github.com/juanezcere/Zabavy/blob/feature/reflex-migration/static/preview.png'
 
@@ -19,11 +18,21 @@ METADATA: list = [
 class Title(Enum):
     INDEX = f'{TITLE} - Index'
     VARIABLE = f'{TITLE} - Variables'
+    SENSOR = f'{TITLE} - Sensors'
+    ACTION = f'{TITLE} - Actions'
+    ACTUATOR = f'{TITLE} - Actuators'
+    DEVICE = f'{TITLE} - Devices'
+    GATEWAY = f'{TITLE} - Gateways'
 
 
 class Description(Enum):
     INDEX = 'Index page description'
     VARIABLE = 'Variables page description'
+    SENSOR = 'Sensors page description'
+    ACTION = 'Actions page description'
+    ACTUATOR = 'Actuators page description'
+    DEVICE = 'Devices page description'
+    GATEWAY = 'Gateways page description'
 
 
 class Metadata(Enum):
@@ -36,4 +45,29 @@ class Metadata(Enum):
         *METADATA,
         {'name': 'og:title', 'content': Title.VARIABLE.value},
         {'name': 'og:description', 'content': Description.VARIABLE.value},
+    ]
+    SENSOR = [
+        *METADATA,
+        {'name': 'og:title', 'content': Title.SENSOR.value},
+        {'name': 'og:description', 'content': Description.SENSOR.value},
+    ]
+    ACTION = [
+        *METADATA,
+        {'name': 'og:title', 'content': Title.ACTION.value},
+        {'name': 'og:description', 'content': Description.ACTION.value},
+    ]
+    ACTUATOR = [
+        *METADATA,
+        {'name': 'og:title', 'content': Title.ACTUATOR.value},
+        {'name': 'og:description', 'content': Description.ACTUATOR.value},
+    ]
+    DEVICE = [
+        *METADATA,
+        {'name': 'og:title', 'content': Title.DEVICE.value},
+        {'name': 'og:description', 'content': Description.DEVICE.value},
+    ]
+    GATEWAY = [
+        *METADATA,
+        {'name': 'og:title', 'content': Title.GATEWAY.value},
+        {'name': 'og:description', 'content': Description.GATEWAY.value},
     ]
