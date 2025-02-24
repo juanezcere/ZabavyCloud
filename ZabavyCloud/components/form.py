@@ -44,13 +44,11 @@ def Form(state: any) -> rx.form:
                     event=None,
                 ),
             ),
-            rx.dialog.close(
-                Button(
-                    image='circle-x',
-                    tooltip='Close',
-                    event=None,
-                    color='red',
-                )
+            Button(
+                image='circle-x',
+                tooltip='Close',
+                event=state.close_form,
+                color='red',
             ),
             spacing='3',
             justify='end',

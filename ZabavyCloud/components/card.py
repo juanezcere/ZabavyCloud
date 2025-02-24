@@ -71,20 +71,11 @@ def CardList(state: any) -> rx.vstack:
                 event=state.get_data,
             ),
             Search(data=state.data),
-            rx.dialog.root(
-                rx.dialog.trigger(
-                    Button(
-                        image='plus',
-                        tooltip='Create',
-                        event=None,
-                        color='green',
-                    )
-                ),
-                rx.dialog.content(
-                    rx.dialog.title('Data creation'),
-                    rx.dialog.description('Form to create data.'),
-                    Form(state=state),
-                ),
+            Button(
+                image='plus',
+                tooltip='Create',
+                event=state.open_form,
+                color='green',
             ),
             spacing='5',
             align='center',
@@ -100,6 +91,14 @@ def CardList(state: any) -> rx.vstack:
                     align='center',
                 )
             ),
+        ),
+        rx.dialog.root(
+            rx.dialog.content(
+                rx.dialog.title('Data creation'),
+                rx.dialog.description('Form to create data.'),
+                Form(state=state),
+            ),
+            open=state.opened,
         ),
         width='100%',
         spacing='3',

@@ -42,7 +42,6 @@ def index() -> SingleTemplate:
                     on_click=State.increment,
                 ),
                 spacing="4",
-                style={'padding': '5px'}
             )
         ]
     )

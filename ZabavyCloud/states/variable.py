@@ -76,20 +76,15 @@ class VariableState(rx.State):
 
     selected: str = ''
 
-    def create_test_data(self):
-        service: VariableService = build_service()
-        model = VariableModel(
-            id=generate_id(),
-            name='Temperature',
-            image='thermomether',
-            platform='temperature',
-            description='Variable de temperatura.',
-        )
-        print("CREATING MODEL:", model)
-        try:
-            service.create_variable(model=model)
-        except:
-            pass
+    opened: bool = False
+
+    @rx.event
+    def open_form(self):
+        self.opened = True
+
+    @rx.event
+    def close_form(self):
+        self.opened = False
 
     def get_data(self):
         service: VariableService = build_service()
@@ -97,10 +92,9 @@ class VariableState(rx.State):
         print("Gotten data:", self.data)
 
     def handle_submit(self, data: dict):
-        equation = data['equation'].split(',')
-        del data['equation']
-        model = VariableModel(**data, equation=equation)
+        data['equation'] = data['equation'].split(',')
         service: VariableService = build_service()
+        model = service.factory(**data)
         print("Selected:", self.selected)
         if self.selected == '':
             service.create_variable(model=model)
@@ -109,10 +103,12 @@ class VariableState(rx.State):
             service.update_variable(model=model, record=self.selected)
             print("Updated")
         self.get_data()
+        self.close_form()
 
     def handle_update(self, element: str):
         print("UPDATING")
         self.selected = element
+        self.open_form()
         print(self.selected)
 
     def handle_delete(self, element: str):
