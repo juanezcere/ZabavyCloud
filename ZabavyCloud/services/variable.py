@@ -45,7 +45,8 @@ class VariableService:
                 detail=Error.VARIABLE_NOT_EXISTS.value,
             )
         data = self.get_variable()
-        exists = list(filter(lambda x: x.platform == model.platform, data))
+        exists = list(filter(lambda x: x.platform ==
+                      model.platform and x.uid != record, data))
         if len(exists):
             raise HTTPException(
                 status_code=status.HTTP_208_ALREADY_REPORTED,
