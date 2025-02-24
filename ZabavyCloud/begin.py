@@ -18,7 +18,10 @@ from .routers.variable import router as variable_router
 
 def build_repository(context: any) -> None:
     context.logging.debug("Building repository.")
-    repository.create(repository='memory', name='database')
+    # repository.create(repository='memory', name='database')
+    connection_string = f'mongodb://localhost:27017/{context.const.DATABASE_NAME}'
+    repository.create(repository='mongo', name='database',
+                      connection_string=connection_string)
     context.repository = repository
 
 

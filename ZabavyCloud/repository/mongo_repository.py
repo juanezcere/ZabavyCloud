@@ -19,16 +19,9 @@ class MongoRepository(Repository):
 
     def read(self, collection: Collection, record: str, skip: int = 0, limit: int = 100) -> list:
         mongo_collection = self._get_collection(collection)
-
-        # Convertir la cadena de filtro a un diccionario de consulta de MongoDB
-        # ¡IMPORTANTE! Esto es un ejemplo básico y puede necesitar ajustes
-        # según la complejidad de tus filtros.
-        try:
-            query = eval(filters)  # CUIDADO: eval() puede ser peligroso.
-        except:
-            query = {}  # Si hay un error, usa un query vacío.
-
-        return list(mongo_collection.find(query).skip(skip).limit(limit))
+        query = {'_id': record} if len(record) else {}
+        data = mongo_collection.find(query).skip(skip).limit(limit)
+        return [{**d, 'id': str(d['_id'])} for d in data]
 
     def create(self, collection: Collection, data: dict) -> dict:
         mongo_collection = self._get_collection(collection)
