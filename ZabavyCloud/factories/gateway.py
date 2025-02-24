@@ -5,10 +5,10 @@ from ..models.gateway import GatewayModel
 
 
 class GatewayFactory:
-    def __call__(self, name: str, image: str, platform: str, id: str = '', description: str = '', devices: list = []) -> GatewayModel:
+    def __call__(self, name: str, image: str, platform: str, uid: str = '', description: str = '', devices: list = []) -> GatewayModel:
         try:
             data: dict = {
-                'id': str(id),
+                'uid': str(uid),
                 'name': str(name),
                 'image': str(image),
                 'platform': str(platform),

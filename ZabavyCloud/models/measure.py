@@ -6,7 +6,7 @@ from .output import OutputModel
 
 
 class MeasureModel(BaseModel):
-    id: Optional[str]
+    uid: Optional[str]
     device: str
     timestamp: int
     values: dict[str, float] = {}

@@ -41,13 +41,13 @@ def Card(state: any, item: any) -> rx.card:
                     justify='center',
                     width='100%',
                 ),
-                href=f'{state.module}/{item.id}',
+                href=f'{state.module}/{item.uid}',
             ),
             rx.hstack(
                 Button(
                     image='pen',
                     tooltip='Edit',
-                    event=lambda: state.handle_update(item.id),
+                    event=lambda: state.handle_update(item.uid),
                 ),
                 Button(
                     image='trash',
@@ -57,7 +57,7 @@ def Card(state: any, item: any) -> rx.card:
                 ),
                 Confirm(
                     event=lambda: [
-                        state.handle_delete(item.id),
+                        state.handle_delete(item.uid),
                         ConfirmState.close()
                     ]
                 ),

@@ -15,7 +15,7 @@ class MemoryRepository(Repository):
         if collection not in self.__data:
             return []
         if len(record):
-            return list(filter(lambda x: x['id'] == record, self.__data[collection]))
+            return list(filter(lambda x: x['uid'] == record, self.__data[collection]))
         return self.__data[collection][skip:skip + limit]
 
     def create(self, collection: Collection, data: dict) -> dict:
@@ -24,7 +24,7 @@ class MemoryRepository(Repository):
         if not data:
             raise ValueError("Data is empty.")
         new_id = generate_id()
-        data['id'] = new_id
+        data['uid'] = new_id
         self.__data[collection].append(data)
         return data
 
@@ -36,7 +36,7 @@ class MemoryRepository(Repository):
             return None
         saved = saved[0]
         self.__data[collection].remove(saved)
-        data['id'] = record
+        data['uid'] = record
         self.__data[collection].append(data)
         return data
 

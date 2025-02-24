@@ -6,10 +6,10 @@ from ..utils.time_utils import timestamp
 
 
 class MeasureFactory:
-    def __call__(self, device: str, id: str = '', timestamp: int = timestamp(), values: dict = {}) -> MeasureModel:
+    def __call__(self, device: str, uid: str = '', timestamp: int = timestamp(), values: dict = {}) -> MeasureModel:
         try:
             data: dict = {
-                'id': str(id),
+                'uid': str(uid),
                 'device': str(device),
                 'timestamp': int(timestamp),
                 'values': {key: float(value) for key, value in values.items()},

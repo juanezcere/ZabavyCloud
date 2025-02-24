@@ -5,10 +5,10 @@ from ..models.sensor import SensorModel
 
 
 class SensorFactory:
-    def __call__(self, name: str, image: str, platform: str, id: str = '', description: str = '', variables: list = []) -> SensorModel:
+    def __call__(self, name: str, image: str, platform: str, uid: str = '', description: str = '', variables: list = []) -> SensorModel:
         try:
             data: dict = {
-                'id': str(id),
+                'uid': str(uid),
                 'name': str(name),
                 'image': str(image),
                 'platform': str(platform),

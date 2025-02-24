@@ -20,14 +20,24 @@ class MongoRepository(Repository):
     def read(self, collection: Collection, record: str, skip: int = 0, limit: int = 100) -> list:
         mongo_collection = self._get_collection(collection)
         query = {'_id': record} if len(record) else {}
-        data = mongo_collection.find(query).skip(skip).limit(limit)
-        return [{**d, 'id': str(d['_id'])} for d in data]
+        mongo_data = mongo_collection.find(query).skip(skip).limit(limit)
+        data: list = []
+        for register in mongo_data:
+            register = {
+                'uid': str(register['_id']),
+                **register,
+            }
+            del register['_id']
+            data.append(register)
+        return data
 
     def create(self, collection: Collection, data: dict) -> dict:
         mongo_collection = self._get_collection(collection)
+        del data['uid']
         result = mongo_collection.insert_one(data)
         new_id = str(result.inserted_id)
-        data['id'] = new_id
+        data['uid'] = new_id
+        del data['_id']
         return data
 
     def update(self, collection: Collection, record: str, data: dict) -> dict:

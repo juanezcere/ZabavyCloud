@@ -5,10 +5,10 @@ from ..models.variable import VariableModel
 
 
 class VariableFactory:
-    def __call__(self, name: str, image: str, platform: str, id: str = '', description: str = '', maximum: float = 100.0, minimum: float = -100.0, offset: float = 0.0, equation: list = [0.0, 0.0, 0.0, 0.0, 1.0, 0.0]) -> VariableModel:
+    def __call__(self, name: str, image: str, platform: str, uid: str = '', description: str = '', maximum: float = 100.0, minimum: float = -100.0, offset: float = 0.0, equation: list = [0.0, 0.0, 0.0, 0.0, 1.0, 0.0]) -> VariableModel:
         try:
             data: dict = {
-                'id': str(id),
+                'uid': str(uid),
                 'name': str(name),
                 'image': str(image),
                 'platform': str(platform),
