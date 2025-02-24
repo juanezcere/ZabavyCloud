@@ -1,8 +1,9 @@
 import reflex as rx
 
 from .button import Button
-from .search import Search
+from .confirm import Confirm, ConfirmState
 from .form import Form
+from .search import Search
 
 
 def Card(state: any, item: any) -> rx.card:
@@ -51,11 +52,18 @@ def Card(state: any, item: any) -> rx.card:
                 Button(
                     image='trash',
                     tooltip='Delete',
-                    event=lambda: state.handle_delete(item.id),
+                    event=ConfirmState.show,
                     color='red',
+                ),
+                Confirm(
+                    event=lambda: [
+                        state.handle_delete(item.id),
+                        ConfirmState.close()
+                    ]
                 ),
             ),
             align='center',
+            justify='between',
         ),
         variant='surface',
         width='100%',
@@ -70,15 +78,16 @@ def CardList(state: any) -> rx.vstack:
                 tooltip='Update',
                 event=state.get_data,
             ),
-            Search(data=state.data),
+            Search(event=state.handle_search),
             Button(
                 image='plus',
                 tooltip='Create',
-                event=state.open_form,
+                event=state.show_form,
                 color='green',
             ),
             spacing='5',
             align='center',
+            margin_y='16px',
         ),
         rx.data_list.root(
             rx.foreach(
@@ -94,8 +103,6 @@ def CardList(state: any) -> rx.vstack:
         ),
         rx.dialog.root(
             rx.dialog.content(
-                rx.dialog.title('Data creation'),
-                rx.dialog.description('Form to create data.'),
                 Form(state=state),
             ),
             open=state.opened,

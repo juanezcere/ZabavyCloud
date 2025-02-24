@@ -79,39 +79,53 @@ class VariableState(rx.State):
     opened: bool = False
 
     @rx.event
-    def open_form(self):
+    def show_form(self):
         self.opened = True
 
     @rx.event
     def close_form(self):
         self.opened = False
+        for i, field in enumerate(self.fields):
+            field.default_value = ''
+        self.selected = ''
 
     def get_data(self):
         service: VariableService = build_service()
         self.data: list = service.get_variable()
-        print("Gotten data:", self.data)
 
     def handle_submit(self, data: dict):
         data['equation'] = data['equation'].split(',')
         service: VariableService = build_service()
         model = service.factory(**data)
-        print("Selected:", self.selected)
         if self.selected == '':
             service.create_variable(model=model)
-            print("Created")
         else:
             service.update_variable(model=model, record=self.selected)
-            print("Updated")
         self.get_data()
         self.close_form()
 
     def handle_update(self, element: str):
-        print("UPDATING")
+        data = list(filter(lambda x: x.id == element, self.data))
+        if not len(data):
+            return
+        data = data[0].dict()
         self.selected = element
-        self.open_form()
-        print(self.selected)
+        for i, field in enumerate(self.fields):
+            field.default_value = data[field.name]
+        self.show_form()
 
     def handle_delete(self, element: str):
-        print("DELETING")
-        self.selected = element
-        print(self.selected)
+        service: VariableService = build_service()
+        service.delete_variable(record=element, reason='')
+        self.get_data()
+
+    def handle_search(self, text: str):
+        if not len(text):
+            return self.get_data()
+        text = text.lower()
+        data = [
+            item
+            for item in self.data
+            if any(text in str(value).lower() for value in item.dict().values())
+        ]
+        self.data = data

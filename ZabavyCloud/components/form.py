@@ -21,11 +21,24 @@ def Field(item: FieldModel) -> rx.input:
         variant='classic',
         radius='full',
         width='100%',
-    ),
+    )
 
 
 def Form(state: any) -> rx.form:
     return rx.form(
+        rx.hstack(
+            rx.vstack(
+                rx.dialog.title('Data creation'),
+                rx.dialog.description('Form to create data.'),
+            ),
+            Button(
+                image='x',
+                tooltip='Close',
+                event=state.close_form,
+                color='red',
+            ),
+            justify='between',
+        ),
         rx.foreach(
             state.fields,
             lambda x: rx.vstack(
@@ -36,7 +49,7 @@ def Form(state: any) -> rx.form:
                 margin='16px'
             )
         ),
-        rx.flex(
+        rx.center(
             rx.form.submit(
                 Button(
                     image='save',
@@ -44,16 +57,9 @@ def Form(state: any) -> rx.form:
                     event=None,
                 ),
             ),
-            Button(
-                image='circle-x',
-                tooltip='Close',
-                event=state.close_form,
-                color='red',
-            ),
             spacing='3',
-            justify='end',
         ),
         margin_y='16px',
         reset_on_submit=True,
         on_submit=state.handle_submit,
-    ),
+    )
