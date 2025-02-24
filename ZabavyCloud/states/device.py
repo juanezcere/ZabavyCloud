@@ -2,13 +2,13 @@ import reflex as rx
 
 from ..constants.route import Route
 from ..models.field import FieldModel
-from ..models.sensor import SensorModel
-from ..services.sensor import SensorService, build_service
+from ..models.device import DeviceModel
+from ..services.device import DeviceService, build_service
 from ..utils.uuid_utils import generate_id
 
 
-class SensorState(rx.State):
-    module: str = Route.SENSOR.value
+class DeviceState(rx.State):
+    module: str = Route.DEVICE.value
 
     fields: list[FieldModel] = [
         FieldModel(
@@ -43,15 +43,22 @@ class SensorState(rx.State):
             icon='scroll-text',
         ),
         FieldModel(
-            name='variables',
+            name='sensors',
             type='text',
-            placeholder='Variables',
+            placeholder='Sensors',
+            icon='square-sigma',
+            required=False,
+        ),
+        FieldModel(
+            name='actuators',
+            type='text',
+            placeholder='Actuators',
             icon='square-sigma',
             required=False,
         ),
     ]
 
-    data: list[SensorModel] = []
+    data: list[DeviceModel] = []
 
     selected: str = ''
 
@@ -69,17 +76,18 @@ class SensorState(rx.State):
         self.selected = ''
 
     def get_data(self):
-        service: SensorService = build_service()
-        self.data: list = service.get_sensor()
+        service: DeviceService = build_service()
+        self.data: list = service.get_device()
 
     def handle_submit(self, data: dict):
-        data['variables'] = data['variables'].split(',')
-        service: SensorService = build_service()
+        data['sensors'] = data['sensors'].split(',')
+        data['actuators'] = data['actuators'].split(',')
+        service: DeviceService = build_service()
         model = service.factory(**data)
         if self.selected == '':
-            service.create_sensor(model=model)
+            service.create_device(model=model)
         else:
-            service.update_sensor(model=model, record=self.selected)
+            service.update_device(model=model, record=self.selected)
         self.get_data()
         self.close_form()
 
@@ -94,8 +102,8 @@ class SensorState(rx.State):
         self.show_form()
 
     def handle_delete(self, element: str):
-        service: SensorService = build_service()
-        service.delete_sensor(record=element, reason='')
+        service: DeviceService = build_service()
+        service.delete_device(record=element, reason='')
         self.get_data()
 
     def handle_search(self, text: str):

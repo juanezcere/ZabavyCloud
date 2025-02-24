@@ -2,13 +2,13 @@ import reflex as rx
 
 from ..constants.route import Route
 from ..models.field import FieldModel
-from ..models.sensor import SensorModel
-from ..services.sensor import SensorService, build_service
+from ..models.action import ActionModel
+from ..services.action import ActionService, build_service
 from ..utils.uuid_utils import generate_id
 
 
-class SensorState(rx.State):
-    module: str = Route.SENSOR.value
+class ActionState(rx.State):
+    module: str = Route.ACTION.value
 
     fields: list[FieldModel] = [
         FieldModel(
@@ -42,16 +42,9 @@ class SensorState(rx.State):
             placeholder='Description',
             icon='scroll-text',
         ),
-        FieldModel(
-            name='variables',
-            type='text',
-            placeholder='Variables',
-            icon='square-sigma',
-            required=False,
-        ),
     ]
 
-    data: list[SensorModel] = []
+    data: list[ActionModel] = []
 
     selected: str = ''
 
@@ -69,17 +62,16 @@ class SensorState(rx.State):
         self.selected = ''
 
     def get_data(self):
-        service: SensorService = build_service()
-        self.data: list = service.get_sensor()
+        service: ActionService = build_service()
+        self.data: list = service.get_action()
 
     def handle_submit(self, data: dict):
-        data['variables'] = data['variables'].split(',')
-        service: SensorService = build_service()
+        service: ActionService = build_service()
         model = service.factory(**data)
         if self.selected == '':
-            service.create_sensor(model=model)
+            service.create_action(model=model)
         else:
-            service.update_sensor(model=model, record=self.selected)
+            service.update_action(model=model, record=self.selected)
         self.get_data()
         self.close_form()
 
@@ -94,8 +86,8 @@ class SensorState(rx.State):
         self.show_form()
 
     def handle_delete(self, element: str):
-        service: SensorService = build_service()
-        service.delete_sensor(record=element, reason='')
+        service: ActionService = build_service()
+        service.delete_action(record=element, reason='')
         self.get_data()
 
     def handle_search(self, text: str):

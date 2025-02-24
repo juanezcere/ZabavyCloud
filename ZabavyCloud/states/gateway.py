@@ -2,13 +2,13 @@ import reflex as rx
 
 from ..constants.route import Route
 from ..models.field import FieldModel
-from ..models.sensor import SensorModel
-from ..services.sensor import SensorService, build_service
+from ..models.gateway import GatewayModel
+from ..services.gateway import GatewayService, build_service
 from ..utils.uuid_utils import generate_id
 
 
-class SensorState(rx.State):
-    module: str = Route.SENSOR.value
+class GatewayState(rx.State):
+    module: str = Route.GATEWAY.value
 
     fields: list[FieldModel] = [
         FieldModel(
@@ -43,15 +43,15 @@ class SensorState(rx.State):
             icon='scroll-text',
         ),
         FieldModel(
-            name='variables',
+            name='devices',
             type='text',
-            placeholder='Variables',
+            placeholder='Devices',
             icon='square-sigma',
             required=False,
         ),
     ]
 
-    data: list[SensorModel] = []
+    data: list[GatewayModel] = []
 
     selected: str = ''
 
@@ -69,17 +69,17 @@ class SensorState(rx.State):
         self.selected = ''
 
     def get_data(self):
-        service: SensorService = build_service()
-        self.data: list = service.get_sensor()
+        service: GatewayService = build_service()
+        self.data: list = service.get_gateway()
 
     def handle_submit(self, data: dict):
-        data['variables'] = data['variables'].split(',')
-        service: SensorService = build_service()
+        data['devices'] = data['devices'].split(',')
+        service: GatewayService = build_service()
         model = service.factory(**data)
         if self.selected == '':
-            service.create_sensor(model=model)
+            service.create_gateway(model=model)
         else:
-            service.update_sensor(model=model, record=self.selected)
+            service.update_gateway(model=model, record=self.selected)
         self.get_data()
         self.close_form()
 
@@ -94,8 +94,8 @@ class SensorState(rx.State):
         self.show_form()
 
     def handle_delete(self, element: str):
-        service: SensorService = build_service()
-        service.delete_sensor(record=element, reason='')
+        service: GatewayService = build_service()
+        service.delete_gateway(record=element, reason='')
         self.get_data()
 
     def handle_search(self, text: str):
