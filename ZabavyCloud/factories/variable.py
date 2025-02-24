@@ -23,5 +23,5 @@ class VariableFactory:
             print(err)
             raise HTTPException(
                 status_code=status.HTTP_406_NOT_ACCEPTABLE,
-                detail=Error.VARIABLE_NOT_EXISTS.value,
+                detail=Error.VARIABLE_BAD_REQUEST.value,
             )
