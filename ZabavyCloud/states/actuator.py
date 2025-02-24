@@ -73,6 +73,8 @@ class ActuatorState(rx.State):
         self.data: list = service.get_actuator()
 
     def handle_submit(self, data: dict):
+        if not self.opened:
+            return
         data['actions'] = data['actions'].split(',')
         service: ActuatorService = build_service()
         model = service.factory(**data)

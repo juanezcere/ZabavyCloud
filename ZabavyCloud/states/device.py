@@ -80,6 +80,8 @@ class DeviceState(rx.State):
         self.data: list = service.get_device()
 
     def handle_submit(self, data: dict):
+        if not self.opened:
+            return
         data['sensors'] = data['sensors'].split(',')
         data['actuators'] = data['actuators'].split(',')
         service: DeviceService = build_service()

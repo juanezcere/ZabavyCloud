@@ -94,6 +94,8 @@ class VariableState(rx.State):
         self.data: list = service.get_variable()
 
     def handle_submit(self, data: dict):
+        if not self.opened:
+            return
         data['equation'] = data['equation'].split(',')
         service: VariableService = build_service()
         model = service.factory(**data)

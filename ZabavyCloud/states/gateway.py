@@ -73,6 +73,8 @@ class GatewayState(rx.State):
         self.data: list = service.get_gateway()
 
     def handle_submit(self, data: dict):
+        if not self.opened:
+            return
         data['devices'] = data['devices'].split(',')
         service: GatewayService = build_service()
         model = service.factory(**data)

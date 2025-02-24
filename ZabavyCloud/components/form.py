@@ -31,11 +31,13 @@ def Form(state: any) -> rx.form:
                 rx.dialog.title('Data creation'),
                 rx.dialog.description('Form to create data.'),
             ),
-            Button(
-                image='x',
-                tooltip='Close',
-                event=state.close_form,
-                color='red',
+            rx.dialog.close(
+                Button(
+                    image='x',
+                    tooltip='Close',
+                    event=state.close_form,
+                    color='red',
+                ),
             ),
             justify='between',
         ),

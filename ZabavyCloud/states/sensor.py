@@ -73,6 +73,8 @@ class SensorState(rx.State):
         self.data: list = service.get_sensor()
 
     def handle_submit(self, data: dict):
+        if not self.opened:
+            return
         data['variables'] = data['variables'].split(',')
         service: SensorService = build_service()
         model = service.factory(**data)
