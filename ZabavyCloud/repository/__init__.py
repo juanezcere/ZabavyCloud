@@ -13,9 +13,10 @@ def get(name: str) -> Repository:
     return None
 
 
-def create(repository: str, name: str) -> Repository:
+def create(repository: str, name: str, *args, **kwargs) -> Repository:
     global repositories, factory
-    repositories[name] = factory.create(factory_type=repository)
+    repositories[name] = factory.create(
+        factory_type=repository, *args, **kwargs)
     return repositories[name]
 
 

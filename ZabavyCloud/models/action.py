@@ -6,7 +6,7 @@ from .output import OutputModel
 
 
 class ActionModel(BaseModel):
-    id: Optional[str]
+    uid: Optional[str]
     name: str
     image: str
     platform: str

@@ -5,10 +5,10 @@ from ..models.device import DeviceModel
 
 
 class DeviceFactory:
-    def __call__(self, name: str, image: str, platform: str, id: str = '', description: str = '', sensors: list = [], actuators: list = []) -> DeviceModel:
+    def __call__(self, name: str, image: str, platform: str, uid: str = '', description: str = '', sensors: list = [], actuators: list = []) -> DeviceModel:
         try:
             data: dict = {
-                'id': str(id),
+                'uid': str(uid),
                 'name': str(name),
                 'image': str(image),
                 'platform': str(platform),

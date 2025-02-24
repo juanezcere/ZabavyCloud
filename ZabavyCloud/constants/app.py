@@ -33,6 +33,8 @@ LICENCE_INFO: dict = {
     'identifier': 'MIT',
 }
 
+
+DATABASE_NAME: str = 'ZabavyCloud'
 SOFTWARE_VERSION: str = '1.0.0'
 HARDWARE_VERSION: str = '1.0.0'
 

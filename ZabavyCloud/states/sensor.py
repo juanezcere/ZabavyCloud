@@ -12,7 +12,7 @@ class SensorState(rx.State):
 
     fields: list[FieldModel] = [
         FieldModel(
-            name='id',
+            name='uid',
             type='text',
             placeholder='Id',
             icon='id-card',
@@ -73,6 +73,8 @@ class SensorState(rx.State):
         self.data: list = service.get_sensor()
 
     def handle_submit(self, data: dict):
+        if not self.opened:
+            return
         data['variables'] = data['variables'].split(',')
         service: SensorService = build_service()
         model = service.factory(**data)
@@ -84,7 +86,7 @@ class SensorState(rx.State):
         self.close_form()
 
     def handle_update(self, element: str):
-        data = list(filter(lambda x: x.id == element, self.data))
+        data = list(filter(lambda x: x.uid == element, self.data))
         if not len(data):
             return
         data = data[0].dict()

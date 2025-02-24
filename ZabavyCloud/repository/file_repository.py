@@ -45,7 +45,7 @@ class FileRepository(Repository):
             all_data = []
 
         new_id = generate_id()
-        data['id'] = new_id
+        data['uid'] = new_id
         all_data.append(data)
 
         with open(file_path, 'w') as f:
@@ -61,7 +61,7 @@ class FileRepository(Repository):
             return None  # Archivo no encontrado
 
         for i, item in enumerate(all_data):
-            if str(item.get("id")) == record:  # Compara IDs como strings
+            if str(item.get("uid")) == record:  # Compara IDs como strings
                 all_data[i].update(data)
                 with open(file_path, 'w') as f:
                     json.dump(all_data, f, indent=4)
@@ -77,7 +77,7 @@ class FileRepository(Repository):
             return None  # Archivo no encontrado
 
         for i, item in enumerate(all_data):
-            if str(item.get("id")) == record:  # Compara IDs como strings
+            if str(item.get("uid")) == record:  # Compara IDs como strings
                 deleted_data = all_data.pop(i)
                 with open(file_path, 'w') as f:
                     json.dump(all_data, f, indent=4)

@@ -12,7 +12,7 @@ class ActionState(rx.State):
 
     fields: list[FieldModel] = [
         FieldModel(
-            name='id',
+            name='uid',
             type='text',
             placeholder='Id',
             icon='id-card',
@@ -66,6 +66,8 @@ class ActionState(rx.State):
         self.data: list = service.get_action()
 
     def handle_submit(self, data: dict):
+        if not self.opened:
+            return
         service: ActionService = build_service()
         model = service.factory(**data)
         if self.selected == '':
@@ -76,7 +78,7 @@ class ActionState(rx.State):
         self.close_form()
 
     def handle_update(self, element: str):
-        data = list(filter(lambda x: x.id == element, self.data))
+        data = list(filter(lambda x: x.uid == element, self.data))
         if not len(data):
             return
         data = data[0].dict()

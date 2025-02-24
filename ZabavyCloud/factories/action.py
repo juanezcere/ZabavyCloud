@@ -5,10 +5,10 @@ from ..models.action import ActionModel
 
 
 class ActionFactory:
-    def __call__(self, name: str, image: str, platform: str, id: str = '', description: str = '') -> ActionModel:
+    def __call__(self, name: str, image: str, platform: str, uid: str = '', description: str = '') -> ActionModel:
         try:
             data: dict = {
-                'id': str(id),
+                'uid': str(uid),
                 'name': str(name),
                 'image': str(image),
                 'platform': str(platform),
